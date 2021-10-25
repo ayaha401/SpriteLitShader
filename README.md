@@ -11,6 +11,8 @@ Unity 2020.3.8f1
 
 
 # 注意事項
+* SpriteRendererに設定が必要。詳しくはこちら
+https://github.com/ayaha401/SpriteLitShader/wiki/SpriteRenderer%E8%A8%AD%E5%AE%9A
 
 
 # 更新履歴
