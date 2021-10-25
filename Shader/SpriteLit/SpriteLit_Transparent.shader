@@ -1,4 +1,4 @@
-Shader "Lit/SpriteLit_Transparent"
+Shader "SpriteLit/Transparent"
 {
     Properties
     {
@@ -89,4 +89,5 @@ Shader "Lit/SpriteLit_Transparent"
 
         }
     }
+    CustomEditor "SpriteLitShaderGUI"
 }

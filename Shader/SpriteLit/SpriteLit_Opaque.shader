@@ -1,4 +1,4 @@
-Shader "Lit/SpriteLit_Opaque"
+Shader "SpriteLit/Opaque"
 {
     Properties
     {
@@ -87,4 +87,5 @@ Shader "Lit/SpriteLit_Opaque"
             ENDCG
         }
     }
+    CustomEditor "SpriteLitShaderGUI"
 }
