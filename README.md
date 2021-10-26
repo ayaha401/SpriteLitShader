@@ -17,5 +17,8 @@ https://github.com/ayaha401/SpriteLitShader/wiki/SpriteRenderer%E8%A8%AD%E5%AE%9
 
 # 更新履歴
 
+## v1.0.1
+* includeのパスを修正
+
 ## v1.0.0
 * 公開開始
