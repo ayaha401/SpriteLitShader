@@ -1,5 +1,5 @@
 //================================================================================================
-//      SpriteLitShader    Var 1.0.0
+//      SpriteLitShader    Var 1.0.1
 //
 //      Copyright (C) 2021 ayaha401
 //      Twitter : @ayaha__401
@@ -92,7 +92,7 @@ Shader "SpriteLit/Transparent"
             #pragma multi_compile_shadowcaster
             #define TRANSPARENT_MODE
 
-            #include "Assets/Shader/SpriteLit/cginc/SpriteLit_Shadow.cginc"
+            #include "../SpriteLit/cginc/SpriteLit_Shadow.cginc"
             
             ENDCG
 

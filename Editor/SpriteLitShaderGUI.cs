@@ -18,7 +18,7 @@ public class SpriteLitShaderGUI : ShaderGUI
             {
                 GUILayout.Label("Version");
                 GUILayout.FlexibleSpace();
-                GUILayout.Label("Version 1.0.0");
+                GUILayout.Label("Version 1.0.1");
             }
 
             using (new EditorGUILayout.HorizontalScope())
