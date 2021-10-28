@@ -1,5 +1,5 @@
 //================================================================================================
-//      SpriteLitShader    Var 1.0.1
+//      SpriteLitShader(URP)    Var 1.0.0
 //
 //      Copyright (C) 2021 ayaha401
 //      Twitter : @ayaha__401
@@ -7,7 +7,7 @@
 //      This software is released under the MIT License.
 //      see https://github.com/ayaha401/SpriteLitShader/blob/main/LICENSE
 //================================================================================================
-Shader "SpriteLit/Transparent"
+Shader "Lit/SpriteLit_URP"
 {
     Properties
     {
@@ -32,20 +32,21 @@ Shader "SpriteLit/Transparent"
 
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            // #include "UnityCG.cginc"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
-            struct appdata
+            struct Attributes
             {
-                float4 vertex : POSITION;
+                float4 positionOS : POSITION;
                 float2 uv : TEXCOORD0;
                 float4 color : COLOR;
             };
 
-            struct v2f
+            struct Varyings
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
@@ -53,26 +54,29 @@ Shader "SpriteLit/Transparent"
             };
 
             sampler2D _MainTex;
-            float4 _MainTex_ST;
-            float4 _Color;
 
-            v2f vert (appdata v)
+            CBUFFER_START(UnityPerMaterial)
+                float4 _MainTex_ST;
+                float4 _Color;
+            CBUFFER_END
+
+            Varyings vert (Attributes v)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                Varyings o;
+                o.vertex = TransformObjectToHClip(v.positionOS.xyz);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.color = v.color * _Color;
                 return o;
             }
 
-            float4 frag (v2f i) : SV_Target
+            float4 frag (Varyings i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv) * i.color;
                 clip(col.a - .01);
                 col.rgb *= col.a;
                 return col;
             }
-            ENDCG
+            ENDHLSL
         }
 
         Pass
@@ -81,22 +85,16 @@ Shader "SpriteLit/Transparent"
             {
                 "LightMode"="ShadowCaster"
             }
-            // ZWrite On
-            // ZTest LEqual
-            // Cull Off
+            ZWrite On
+            ZTest LEqual
 
-
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma multi_compile_shadowcaster
-            #define TRANSPARENT_MODE
 
-            #include "../SpriteLit/cginc/SpriteLit_Shadow.cginc"
+            #include "../SpriteLit/hlsl/SpriteLit_Shadow.hlsl"
             
-            ENDCG
-
+            ENDHLSL
         }
     }
-    CustomEditor "SpriteLitShaderGUI"
 }

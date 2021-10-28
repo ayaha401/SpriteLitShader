@@ -1,5 +1,5 @@
 //================================================================================================
-//      SpriteLitShader    Var 1.0.1
+//      SpriteLitShader(BRP)    Var 1.0.1
 //
 //      Copyright (C) 2021 ayaha401
 //      Twitter : @ayaha__401
@@ -7,7 +7,7 @@
 //      This software is released under the MIT License.
 //      see https://github.com/ayaha401/SpriteLitShader/blob/main/LICENSE
 //================================================================================================
-Shader "SpriteLit/Opaque"
+Shader "SpriteLit/Transparent"
 {
     Properties
     {
@@ -18,7 +18,8 @@ Shader "SpriteLit/Opaque"
     {
         Tags 
         { 
-            "RenderType" = "Opaque"
+            "Queue" = "Transparent"
+            "RenderType" = "Transparent"
             "IgnoreProjector" = "True"
             "PreviewType" = "Plane"
             "CanUseSpriteAtlas" = "True"
@@ -27,7 +28,7 @@ Shader "SpriteLit/Opaque"
         Cull Off
         // Lighting Off
         // ZWrite Off
-        // Blend One OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha
 
         Pass
         {
@@ -67,8 +68,8 @@ Shader "SpriteLit/Opaque"
             float4 frag (v2f i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv) * i.color;
-                // clip(col.a - .01);
-                // col.rgb *= col.a;
+                clip(col.a - .01);
+                col.rgb *= col.a;
                 return col;
             }
             ENDCG
@@ -89,11 +90,12 @@ Shader "SpriteLit/Opaque"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_shadowcaster
-            #define OPAQUE_MODE
+            #define TRANSPARENT_MODE
 
             #include "../SpriteLit/cginc/SpriteLit_Shadow.cginc"
             
             ENDCG
+
         }
     }
     CustomEditor "SpriteLitShaderGUI"
