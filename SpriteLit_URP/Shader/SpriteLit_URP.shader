@@ -20,67 +20,38 @@ Shader "Lit/SpriteLit_URP"
         { 
             "Queue" = "Transparent"
             "RenderType" = "Transparent"
-            "IgnoreProjector" = "True"
+            "RenderPipeline" = "UniversalPipeline"
+            // "IgnoreProjector" = "True"
             "PreviewType" = "Plane"
             "CanUseSpriteAtlas" = "True"
+            
         }
         LOD 100
         Cull Off
-        // Lighting Off
+        // Lighting off
         // ZWrite Off
         Blend One OneMinusSrcAlpha
 
         Pass
         {
+            Name "Forward"
+            Tags
+            {
+                "LightMode"="UniversalForward"
+            }
+
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-
-            // #include "UnityCG.cginc"
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-
-            struct Attributes
-            {
-                float4 positionOS : POSITION;
-                float2 uv : TEXCOORD0;
-                float4 color : COLOR;
-            };
-
-            struct Varyings
-            {
-                float2 uv : TEXCOORD0;
-                float4 vertex : SV_POSITION;
-                float4 color : COLOR;
-            };
-
-            sampler2D _MainTex;
-
-            CBUFFER_START(UnityPerMaterial)
-                float4 _MainTex_ST;
-                float4 _Color;
-            CBUFFER_END
-
-            Varyings vert (Attributes v)
-            {
-                Varyings o;
-                o.vertex = TransformObjectToHClip(v.positionOS.xyz);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.color = v.color * _Color;
-                return o;
-            }
-
-            float4 frag (Varyings i) : SV_Target
-            {
-                float4 col = tex2D(_MainTex, i.uv) * i.color;
-                clip(col.a - .01);
-                col.rgb *= col.a;
-                return col;
-            }
+            
+            #include "../SpriteLit/hlsl/SpriteLit_Forward.hlsl"
+            
             ENDHLSL
         }
 
         Pass
         {
+            Name "ShadowCaster"
             Tags
             {
                 "LightMode"="ShadowCaster"
@@ -97,4 +68,5 @@ Shader "Lit/SpriteLit_URP"
             ENDHLSL
         }
     }
+    CustomEditor "SpriteLitShader_URP_GUI"
 }
