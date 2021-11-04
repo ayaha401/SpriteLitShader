@@ -11,14 +11,17 @@ Unity 2020.3.8f1
 
 
 # 注意事項
-* SpriteRendererに設定が必要。詳しくはこちら
+* SpriteRendererに設定が必要。詳しくはこちら<br>
 https://github.com/ayaha401/SpriteLitShader/wiki/SpriteRenderer%E8%A8%AD%E5%AE%9A
-
 
 # 更新履歴
 
-## v1.0.1
-* includeのパスを修正
+## URP<br>
+### v1.0.0<br>
+* 公開開始<br>
 
-## v1.0.0
-* 公開開始
+## BRP<br>
+### v1.0.1<br>
+* includeのパスを修正<br>
+### v1.0.0<br>
+* 公開開始<br>
