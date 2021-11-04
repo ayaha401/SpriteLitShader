@@ -1,5 +1,5 @@
 //================================================================================================
-//      SpriteLitShader(BRP)    Var 1.0.1
+//      SpriteLitShader    Var 1.0.2
 //
 //      Copyright (C) 2021 ayaha401
 //      Twitter : @ayaha__401
@@ -37,6 +37,7 @@ Shader "SpriteLit/Transparent"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
+            #include "Lighting.cginc"
 
             struct appdata
             {
@@ -69,6 +70,7 @@ Shader "SpriteLit/Transparent"
             {
                 float4 col = tex2D(_MainTex, i.uv) * i.color;
                 clip(col.a - .01);
+                col.rgb *=  _LightColor0.rgb;
                 col.rgb *= col.a;
                 return col;
             }
@@ -81,10 +83,10 @@ Shader "SpriteLit/Transparent"
             {
                 "LightMode"="ShadowCaster"
             }
-            // ZWrite On
-            // ZTest LEqual
+            ZWrite On
+            ZTest LEqual
             // Cull Off
-
+            
 
             CGPROGRAM
             #pragma vertex vert

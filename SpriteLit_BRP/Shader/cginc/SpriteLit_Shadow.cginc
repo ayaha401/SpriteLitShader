@@ -1,5 +1,5 @@
 //================================================================================================
-//      SpriteLitShader(BRP)    Var 1.0.1
+//      SpriteLitShader    Var 1.0.2
 //
 //      Copyright (C) 2021 ayaha401
 //      Twitter : @ayaha__401
