@@ -21,6 +21,9 @@ https://github.com/ayaha401/SpriteLitShader/wiki/SpriteRenderer%E8%A8%AD%E5%AE%9
 * 公開開始<br>
 
 ## BRP<br>
+### v1.0.2<br>
+* 影を修正<br>
+* ライトの色の影響を受けるようになった
 ### v1.0.1<br>
 * includeのパスを修正<br>
 ### v1.0.0<br>
