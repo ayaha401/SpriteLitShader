@@ -11,7 +11,7 @@ Shader "SpriteLit/Opaque"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData]_MainTex ("Texture", 2D) = "white" {}
         [PerRendererData]_Color ("Color", Color) = (1.0, 1.0, 1.0, 1.0)
     }
     SubShader
@@ -25,9 +25,6 @@ Shader "SpriteLit/Opaque"
         }
         LOD 100
         Cull Off
-        // Lighting Off
-        // ZWrite Off
-        // Blend One OneMinusSrcAlpha
 
         Pass
         {
@@ -68,7 +65,6 @@ Shader "SpriteLit/Opaque"
             float4 frag (v2f i) : SV_Target
             {
                 float4 col = tex2D(_MainTex, i.uv) * i.color;
-                // clip(col.a - .01);
                 col.rgb *= _LightColor0.rgb;
                 return col;
             }
@@ -83,8 +79,6 @@ Shader "SpriteLit/Opaque"
             }
             ZWrite On
             ZTest LEqual
-            // Cull Off
-
 
             CGPROGRAM
             #pragma vertex vert
@@ -97,5 +91,5 @@ Shader "SpriteLit/Opaque"
             ENDCG
         }
     }
-    CustomEditor "SpriteLitShaderGUI"
+    CustomEditor "SpriteLitOpaqueShaderGUI"
 }

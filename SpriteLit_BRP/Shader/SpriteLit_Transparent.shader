@@ -11,7 +11,7 @@ Shader "SpriteLit/Transparent"
 {
     Properties
     {
-        _MainTex ("Texture", 2D) = "white" {}
+        [PerRendererData]_MainTex ("Texture", 2D) = "white" {}
         [PerRendererData]_Color ("Color", Color) = (1.0, 1.0, 1.0, 1.0)
         _Width ("Width", Range(0.0, 0.01)) = 0.001
         _WidthXMul ("Width X Mul", float) = 1.0
@@ -19,7 +19,6 @@ Shader "SpriteLit/Transparent"
         _OutLineColor ("OutLineColor", Color) = (1.0, 1.0, 1.0, 1.0)
 
         [KeywordEnum(Part, All)] _Mode ("Mode", Float) = 0
-
     }
     SubShader
     {
@@ -92,11 +91,6 @@ Shader "SpriteLit/Transparent"
                                             (upShift.a - originalCol.a) + (downShift.a - originalCol.a));
                 outLineCol = outLineCol * _OutLineColor;
 
-
-
-
-
-
                 originalCol.rgb *= _LightColor0.rgb;
                 float4 col = originalCol + outLineCol;
                 col *= i.color;
@@ -121,8 +115,6 @@ Shader "SpriteLit/Transparent"
             }
             ZWrite On
             ZTest LEqual
-            // Cull Off
-            
 
             CGPROGRAM
             #pragma vertex vert
